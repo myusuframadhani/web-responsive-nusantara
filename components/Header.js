@@ -20,7 +20,7 @@ export default function Header() {
 
   const getUser = async () => {
     try {
-      await apiClient
+      await apiConnection
         .get(`/api/user`, {
           headers: { Authorization: `Bearer ${token}` },
         })
@@ -52,15 +52,18 @@ export default function Header() {
   };
   return (
     <div className="flex justify-between items-center h-14 bg-blue-500 text-white px-10 shadow-lg">
-      <div className="flex flex-row shadow-lg">
+      <div className="flex flex-row">
         <Image src={Logo} width={40} height={40} alt={Logo} />
         <p className="font-bold text-xl ml-3">Yusuf Library</p>
       </div>
       <div>
-        <button 
+        <button
           type="button"
+          className="bg-white text-blue-500 px-3 py-2 rounded-lg font-semibold"
           onClick={(e) => handleLogout(e)}
-        >Logout</button>
+        >
+          Logout
+        </button>
       </div>
     </div>
   );

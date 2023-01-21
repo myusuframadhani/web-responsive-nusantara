@@ -20,7 +20,7 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default function Home() {
+export default function Index() {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
@@ -36,8 +36,8 @@ export default function Home() {
         .then((response) => {
           const books = response.data;
           setBooks(books.data);
+          console.log(books);
         });
-        console.log(books)
     } catch (error) {
       console.log(error);
     }
@@ -45,34 +45,39 @@ export default function Home() {
 
   return (
     <>
-      <Header/>
-      <div className="h-screen w-screen flex justify-center items-center">
-        <div className="flex flex-row-reverse">
-          <a href="/books/add" className="bg-blue-500 rounded-lg px-4 py-2">Tambah Buku</a>
+      <Header />
+      <div className="h-screen w-screen flex flex-col justify-start items-center">
+        <div className="flex flex-row-reverse w-full">
+          <a
+            href="/books/tambahBuku"
+            className="bg-blue-500 rounded-lg px-4 py-2 mr-10 mt-5 text-white"
+          >
+            Tambah Buku
+          </a>
         </div>
         <div>
           {books.map((book) => (
             <div className="max-w-sm w-56 h-full mx-2 my-2 shadow-xl">
-                  <a href="#">
-                      <h5 className="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">
-                      {book.title.length > 16 ?
-                          `${d.title.substring(0, 16)}...` : book.title
-                      }
-                      </h5>
-                  </a>
-                  <div className="flex items-center justify-between">
-                      <a
-                        href={`/medicine/${book.id}`}
-                        className="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                        >
-                          Detail
-                      </a>
-                  </div>
+              <a href="#">
+                <h5 className="text-lg font-semibold tracking-tight text-gray-900 dark:text-white">
+                  {book.title.length > 16
+                    ? `${d.title.substring(0, 16)}...`
+                    : book.title}
+                </h5>
+              </a>
+              <div className="flex items-center justify-between">
+                <a
+                  href={`/medicine/${book.id}`}
+                  className="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  Detail
+                </a>
+              </div>
             </div>
           ))}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }
